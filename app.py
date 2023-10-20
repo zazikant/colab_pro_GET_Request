@@ -42,6 +42,8 @@ def get_bot_user_id():
     except SlackApiError as e:
         print(f"Error: {e}")
 
+
+#manually do a GET Request.. it takes time with high resource (RAM).. http://7908-34-91-45-139.ngrok-free.app/get_response?text=@GEM%20about%204D%20BIM%20shashi@123
 @flask_app.route("/get_response", methods=["GET"])
 def get_response():
     global cached_response, cached_text
