@@ -1,0 +1,1581 @@
+2023-11-06 15:33:36 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+2023-11-06 15:34:56 [INFO] Question: What is the sum of the GDPs of the 2 unhappiest countries?
+2023-11-06 15:37:47 [INFO] Question: Which are the 5 happiest countries?
+2023-11-06 15:38:57 [INFO] Question: Which are the 5 happiest countries?
+2023-11-06 15:38:57 [INFO] Running PandasAI with openai LLM...
+2023-11-06 15:38:57 [INFO] Prompt ID: b0a9ccc0-bba7-4a99-a15f-24d4ec9c481a
+2023-11-06 15:38:57 [INFO] Using prompt: 
+You are provided with the following pandas DataFrames:
+
+<dataframe>
+Dataframe dfs[0], with 10 rows and 2 columns.
+This is the metadata of the dataframe dfs[0]:
+country,gdp
+France,7109089123
+Italy,9336972202
+United Kingdom,1794642705
+Germany,6969756973
+United States,9498941777
+</dataframe>
+
+<conversation>
+User 1: Which are the 5 happiest countries?
+</conversation>
+
+This is the initial python code to be updated:
+```python
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+```
+
+Using the provided dataframes (`dfs`), update the python code based on the last question in the conversation.
+
+Updated code:
+
+2023-11-06 15:39:26 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    df_sorted = df.sort_values(by='happiness_score', ascending=False)
+    top_5_countries = df_sorted.head(5)['country'].tolist()
+    
+    # Analyze
+    result = ", ".join(top_5_countries)
+    return {"type": "string", "value": result}
+```
+
+2023-11-06 15:39:26 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    df_sorted = df.sort_values(by='happiness_score', ascending=False)
+    top_5_countries = df_sorted.head(5)['country'].tolist()
+    result = ', '.join(top_5_countries)
+    return {'type': 'string', 'value': result}
+        ```
+2023-11-06 15:39:26 [WARNING] Error of executing code
+2023-11-06 15:39:26 [WARNING] Failed to execute code with a correction framework [retry number: 1]
+2023-11-06 15:39:26 [ERROR] Failed with error: Traceback (most recent call last):
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandasai\smart_datalake\__init__.py", line 337, in chat
+    result = self._code_manager.execute_code(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandasai\helpers\code_manager.py", line 244, in execute_code
+    return analyze_data(self._get_originals(dfs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 20, in analyze_data
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\util\_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\core\frame.py", line 6912, in sort_values
+    k = self._get_label_or_level_values(by, axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\core\generic.py", line 1850, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'happiness_score'
+. Retrying
+2023-11-06 15:39:26 [INFO] Using prompt: 
+You are provided with the following pandas DataFrames with the following metadata:
+
+<dataframe>
+Dataframe dfs[0], with 10 rows and 2 columns.
+This is the metadata of the dataframe dfs[0]:
+country,gdp
+France,7109089123
+Italy,9336972202
+United Kingdom,1794642705
+Germany,6969756973
+United States,9498941777
+</dataframe>
+
+The user asked the following question:
+User 1: Which are the 5 happiest countries?
+
+You generated this python code:
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    df_sorted = df.sort_values(by='happiness_score', ascending=False)
+    top_5_countries = df_sorted.head(5)['country'].tolist()
+    
+    # Analyze
+    result = ", ".join(top_5_countries)
+    return {"type": "string", "value": result}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandasai\smart_datalake\__init__.py", line 337, in chat
+    result = self._code_manager.execute_code(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandasai\helpers\code_manager.py", line 244, in execute_code
+    return analyze_data(self._get_originals(dfs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 20, in analyze_data
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\util\_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\core\frame.py", line 6912, in sort_values
+    k = self._get_label_or_level_values(by, axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\core\generic.py", line 1850, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'happiness_score'
+
+
+Correct the python code and return a new python code that fixes the above mentioned error. Do not generate the same code again.
+
+2023-11-06 15:39:57 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+2023-11-06 15:39:57 [INFO] Running PandasAI with openai LLM...
+2023-11-06 15:39:57 [INFO] Prompt ID: a62987d0-322f-494c-ae43-7f7ff34acccf
+2023-11-06 15:39:57 [INFO] Using prompt: 
+You are provided with the following pandas DataFrames:
+
+<dataframe>
+Dataframe dfs[0], with 10 rows and 2 columns.
+This is the metadata of the dataframe dfs[0]:
+country,gdp
+France,7109089123
+Italy,9336972202
+United Kingdom,1794642705
+Germany,6969756973
+United States,9498941777
+</dataframe>
+
+<conversation>
+User 1: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+</conversation>
+
+This is the initial python code to be updated:
+```python
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+```
+
+Using the provided dataframes (`dfs`), update the python code based on the last question in the conversation.
+
+Updated code:
+
+2023-11-06 15:40:55 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+2023-11-06 15:40:55 [INFO] Running PandasAI with openai LLM...
+2023-11-06 15:40:55 [INFO] Prompt ID: b5885d75-a896-4a0d-8a0e-5ad93f3705b2
+2023-11-06 15:40:55 [INFO] Using prompt: 
+You are provided with the following pandas DataFrames:
+
+<dataframe>
+Dataframe dfs[0], with 10 rows and 2 columns.
+This is the metadata of the dataframe dfs[0]:
+country,gdp
+France,6376988470
+United States,2013906628
+Italy,3718278031
+United Kingdom,3711223792
+Germany,2078385696
+</dataframe>
+
+<conversation>
+User 1: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+</conversation>
+
+This is the initial python code to be updated:
+```python
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+```
+
+Using the provided dataframes (`dfs`), update the python code based on the last question in the conversation.
+
+Updated code:
+
+2023-11-06 15:41:27 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    # No processing needed
+    
+    # Analyze
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    
+    return {"type": "plot", "value": "temp_chart.png"}
+```
+
+2023-11-06 15:41:27 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    return {'type': 'plot', 'value': 'temp_chart.png'}
+        ```
+2023-11-06 15:41:27 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:41:27 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:41:27 [INFO] Answer: {'type': 'plot', 'value': 'temp_chart.png'}
+2023-11-06 15:41:27 [INFO] Executed in: 32.29508686065674s
+2023-11-06 15:42:03 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each barfirst clear the previous plt, at last always convert the graph image to base64 value and do not forget to print the Base64 value
+2023-11-06 15:42:03 [INFO] Running PandasAI with openai LLM...
+2023-11-06 15:42:03 [INFO] Prompt ID: 799d7e7d-d2a6-429b-ace2-aa3bc81ee024
+2023-11-06 15:42:03 [INFO] Using prompt: 
+You are provided with the following pandas DataFrames:
+
+<dataframe>
+Dataframe dfs[0], with 10 rows and 2 columns.
+This is the metadata of the dataframe dfs[0]:
+country,gdp
+France,6376988470
+United States,2013906628
+Italy,3718278031
+United Kingdom,3711223792
+Germany,2078385696
+</dataframe>
+
+<conversation>
+User 1: Plot the histogram of countries showing for each the gdp, using different colors for each barfirst clear the previous plt, at last always convert the graph image to base64 value and do not forget to print the Base64 value
+</conversation>
+
+This is the initial python code to be updated:
+```python
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+```
+
+Using the provided dataframes (`dfs`), update the python code based on the last question in the conversation.
+
+Updated code:
+
+2023-11-06 15:42:38 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+import matplotlib.pyplot as plt
+import io
+import base64
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    
+    # Analyze
+    plt.bar(df['country'], df['gdp'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.xticks(rotation=45)
+    
+    # Save the plot to a buffer
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    
+    # Convert the plot to base64 value
+    plot_base64 = base64.b64encode(buffer.getvalue()).decode()
+    
+    # Close the plot
+    plt.close()
+    
+    return {"type": "plot", "value": plot_base64}
+```
+
+2023-11-06 15:42:38 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    plt.bar(df['country'], df['gdp'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.xticks(rotation=45)
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plot_base64 = base64.b64encode(buffer.getvalue()).decode()
+    plt.close()
+    return {'type': 'plot', 'value': plot_base64}
+        ```
+2023-11-06 15:42:38 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:42:38 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:42:38 [INFO] Answer: {'type': 'plot', 'value': 'iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjcuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/bCgiHAAAACXBIWXMAAA9hAAAPYQGoP6dpAABnlklEQVR4nO3deXhM1/8H8PckJBFZ0OyEhARVJLFFNLFUCGJtrVWR2LVRGqqitau0qr60Te07QS2l9iUtitS+1q522awhSEg+vz88c3+ZJiEqycy479fzzMPce+bMuTOTue85955zNSIiICIiIiLVMNF3A4iIiIiocDEAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARGa358+dDo9Hg4MGD+m4KEZFRYQAkohe6dOkSwsPDUbFiRVhaWsLS0hJVqlTBJ598guPHj+uUHT16NDQajXKztLRE2bJl0apVK8ybNw9paWnZ6g8NDdV5jI2NDby8vPD999/nWF6fduzYgffffx9OTk4wMzODg4MDWrVqhdWrV+u7aQCAR48eYfTo0dixY4e+m0JEBq6IvhtARIZr/fr16NSpE4oUKYKuXbvCy8sLJiYmOHPmDFavXo1p06bh0qVLKFeunM7jpk2bBisrK6SlpeHGjRvYsmULevTogSlTpmD9+vVwdXXVKW9ubo7Zs2cDAO7du4dVq1ZhyJAhOHDgAJYtW1Zo2/sio0aNwtixY+Hp6Ym+ffuiXLlyuH37NjZu3IgPPvgAS5YswYcffqjXNj569AhjxowBADRs2FCvbSEiw8YASEQ5unjxIjp37oxy5cohNjYWzs7OOuu//fZb/PzzzzAxyX4goX379rCzs1Pujxw5EkuWLEFISAg6dOiAv/76S6d8kSJF8NFHHyn3P/74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FD2An3zyCWJiYrB27VpYW1sr5+jZ2tqiWLFiAICQkBCULl0aUVFRAICBAweiQYMG+P777xEcHIxly5bh4MGDmDlzJgBAo9Fg0KBBGD9+PDw9PZVpYFxcXNC2bVu9bCcRERFRYTCKADht2jQAQMOGDXWWz5s3D6GhoQCAq1ev6szmXa9ePcTExOCrr77C8OHD4enpiTVr1ugMHBk6dChSU1PRp08f3Lt3D/7+/ti8eXOe5gAkIiIiMlZGOQ+goeA8QkRERMaH+28jOQeQiIiIiPIPAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyhjFPIBq5TZsg76boOPyN8H6bgIRERHlA/YAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREamMUQTAXbt2oVWrVnBxcYFGo8GaNWteWD40NBQajSbb7Z133lHKjB49Otv6ypUrF/CWEBEREemfUQTA1NRUeHl5ITo6Ok/lp06divj4eOV27do1lCpVCh06dNAp98477+iU2717d0E0n4iIiMigFNF3A/KiefPmaN68eZ7L29rawtbWVrm/Zs0a3L17F2FhYTrlihQpAicnp3xrJxEREZExMIoewNc1Z84cBAYGoly5cjrLz58/DxcXF5QvXx5du3bF1atX9dRCIiIiosJjFD2Ar+PmzZvYtGkTYmJidJb7+vpi/vz5qFSpEuLj4zFmzBgEBATg5MmTsLa2zrGutLQ0pKWlKfdTUlIKtO1EREREBeGND4ALFixAiRIl0LZtW53lWQ8pV69eHb6+vihXrhx++eUX9OzZM8e6oqKiMGbMmIJsLhEREVGBe6MPAYsI5s6di27dusHMzOyFZUuUKIGKFSviwoULuZaJjIzE/fv3ldu1a9fyu8lEREREBe6NDoA7d+7EhQsXcu3Ry+rhw4e4ePEinJ2dcy1jbm4OGxsbnRsRERGRsTGKAPjw4UMcPXoUR48eBQBcunQJR48eVQZtREZGIiQkJNvj5syZA19fX1StWjXbuiFDhmDnzp24fPky9u7di3bt2sHU1BRdunQp0G0hIiIi0jejOAfw4MGDaNSokXI/IiICANC9e3fMnz8f8fHx2Ubw3r9/H6tWrcLUqVNzrPP69evo0qULbt++DXt7e/j7++Ovv/6Cvb19wW0IERERkQHQiIjouxHGKiUlBba2trh//36BHA52G7Yh3+t8HZe/CdZ3E4iIiF5bQe+/jYFRHAImIiIiovzDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCpjFAFw165daNWqFVxcXKDRaLBmzZoXlt+xYwc0Gk22W0JCgk656OhouLm5wcLCAr6+vti/f38BbgURERGRYTCKAJiamgovLy9ER0e/0uPOnj2L+Ph45ebg4KCsW758OSIiIjBq1CgcPnwYXl5eCAoKQlJSUn43n4iIiMigFNF3A/KiefPmaN68+Ss/zsHBASVKlMhx3eTJk9G7d2+EhYUBAKZPn44NGzZg7ty5GDZs2Os0l4iIiMigGUUP4H/l7e0NZ2dnNGnSBHv27FGWp6en49ChQwgMDFSWmZiYIDAwEHFxcfpoKhEREVGheSMDoLOzM6ZPn45Vq1Zh1apVcHV1RcOGDXH48GEAwK1bt5CRkQFHR0edxzk6OmY7TzCrtLQ0pKSk6NyIiIiIjI1RHAJ+VZUqVUKlSpWU+/Xq1cPFixfxv//9D4sWLfrP9UZFRWHMmDH50UQiIiIivXkjewBzUqdOHVy4cAEAYGdnB1NTUyQmJuqUSUxMhJOTU651REZG4v79+8rt2rVrBdpmIiIiooKgmgB49OhRODs7AwDMzMxQs2ZNxMbGKuszMzMRGxsLPz+/XOswNzeHjY2Nzo2IiIjI2BjFIeCHDx8qvXcAcOnSJRw9ehSlSpVC2bJlERkZiRs3bmDhwoUAgClTpsDd3R3vvPMOnjx5gtmzZ+P333/H1q1blToiIiLQvXt31KpVC3Xq1MGUKVOQmpqqjAomIiIielMZRQA8ePAgGjVqpNyPiIgAAHTv3h3z589HfHw8rl69qqxPT0/H4MGDcePGDVhaWqJ69erYvn27Th2dOnVCcnIyRo4ciYSEBHh7e2Pz5s3ZBoYQERERvWk0IiL6boSxSklJga2tLe7fv18gh4Pdhm3I9zpfx+VvgvXdBCIiotdW0PtvY2AUPYBERERU8NjxoB6qGQRCRERERM8xABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpjFEEwF27dqFVq1ZwcXGBRqPBmjVrXlh+9erVaNKkCezt7WFjYwM/Pz9s2bJFp8zo0aOh0Wh0bpUrVy7ArSAiIiIyDEYRAFNTU+Hl5YXo6Og8ld+1axeaNGmCjRs34tChQ2jUqBFatWqFI0eO6JR75513EB8fr9x2795dEM0nIiIiMihF9N2AvGjevDmaN2+e5/JTpkzRuT9hwgSsXbsW69atg4+Pj7K8SJEicHJyyq9mEhERERkFo+gBfF2ZmZl48OABSpUqpbP8/PnzcHFxQfny5dG1a1dcvXr1hfWkpaUhJSVF50ZERERkbFQRACdNmoSHDx+iY8eOyjJfX1/Mnz8fmzdvxrRp03Dp0iUEBATgwYMHudYTFRUFW1tb5ebq6loYzSciIiLKV298AIyJicGYMWPwyy+/wMHBQVnevHlzdOjQAdWrV0dQUBA2btyIe/fu4Zdffsm1rsjISNy/f1+5Xbt2rTA2gYiIiChfGcU5gP/VsmXL0KtXL6xYsQKBgYEvLFuiRAlUrFgRFy5cyLWMubk5zM3N87uZRERERIXqje0BXLp0KcLCwrB06VIEBwe/tPzDhw9x8eJFODs7F0LriIiIiPTHKHoAHz58qNMzd+nSJRw9ehSlSpVC2bJlERkZiRs3bmDhwoUAnh/27d69O6ZOnQpfX18kJCQAAIoVKwZbW1sAwJAhQ9CqVSuUK1cON2/exKhRo2BqaoouXboU/gYSERERFSKj6AE8ePAgfHx8lClcIiIi4OPjg5EjRwIA4uPjdUbwzpw5E8+ePcMnn3wCZ2dn5TZw4EClzPXr19GlSxdUqlQJHTt2xFtvvYW//voL9vb2hbtxRERERIXMKHoAGzZsCBHJdf38+fN17u/YseOldS5btuw1W0VERERknIyiB5CIiIiI8g8DIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqUyRgqo4JSUF+/btQ3p6OurUqQN7e/uCeioiIiIiegUFEgCPHj2KFi1aIDExESICa2tr/PLLLwgKCiqIpyMiIiKiV1Agh4C/+OILuLu7Y/fu3Th06BAaN26M8PDwgngqIiIiInpFBdIDeOjQIWzduhU1atQAAMydOxelSpVCSkoKbGxsCuIpiYiIiCiPCqQH8M6dOyhTpoxyv0SJEihevDhu375dEE9HRERERK+gwAaBnDp1CgkJCcp9EcHp06fx4MEDZVn16tUL6umJiIiIKBcFFgAbN24MEdFZ1rJlS2g0GogINBoNMjIyCurpiYiIiCgXBRIAL126VBDVEhEREVE+KJAAWK5cuYKoloiIiIjyQYEdAgaA8+fPY+3atbh8+TI0Gg3c3d3Rtm1blC9fviCfloiIiIheoMACYFRUFEaOHInMzEw4ODhARJCcnIxhw4ZhwoQJGDJkSEE9NRERERG9QIFMA/PHH3/gq6++wpdffolbt24hPj4eCQkJSgAcNmwYdu3alef6du3ahVatWsHFxQUajQZr1qx56WN27NiBGjVqwNzcHB4eHpg/f362MtHR0XBz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uHDhQo7rzc3NYWNjo3MjIiIiMjZGEQDNzMxQs2ZNxMbGKssyMzMRGxsLPz+/Fz52xYoVSEtLw0cfffTS57l+/Tpu374NZ2fn124zERERkaEyigAIABEREZg1axYWLFiA06dPo3///khNTUVYWBgAICQkBJGRkdkeN2fOHLRt2xZvvfWWzvKHDx/i888/x19//YXLly8jNjYWbdq0gYeHB4KCggplm4iIiIj0wWjOAezUqROSk5MxcuRIJCQkwNvbG5s3b1YGhly9ehUmJrp59uzZs9i9eze2bt2arT5TU1McP34cCxYswL179+Di4oKmTZti3LhxnAuQiIiI3mhGEwABIDw8HOHh4Tmu27FjR7ZllSpVgojkWL5YsWLYsmVLfjaPiIiIyCgYzSFgIiIiIsofDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKmNUATA6Ohpubm6wsLCAr68v9u/fn2vZ+fPnQ6PR6NwsLCx0yogIRo4cCWdnZxQrVgyBgYE4f/58QW8GERERkV4ZTQBcvnw5IiIiMGrUKBw+fBheXl4ICgpCUlJSro+xsbFBfHy8crty5YrO+okTJ+KHH37A9OnTsW/fPhQvXhxBQUF48uRJQW8OERERkd4YTQCcPHkyevfujbCwMFSpUgXTp0+HpaUl5s6dm+tjNBoNnJyclJujo6OyTkQwZcoUfPXVV2jTpg2qV6+OhQsX4ubNm1izZk0hbBERERGRfhhFAExPT8ehQ4cQGBioLDMxMUFgYCDi4uJyfdzDhw9Rrlw5uLq6ok2bNvj777+VdZcuXUJCQoJOnba2tvD19X1hnURERETGzigC4K1bt5CRkaHTgwcAjo6OSEhIyPExlSpVwty5c7F27VosXrwYmZmZqFevHq5fvw4AyuNe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'}
+2023-11-06 15:42:38 [INFO] Executed in: 35.192025899887085s
+2023-11-06 15:43:05 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each barfirst clear the previous plt, at last always convert the graph image to base64 value and do not forget to print the Base64 value
+2023-11-06 15:43:05 [INFO] Running PandasAI with openai LLM...
+2023-11-06 15:43:05 [INFO] Prompt ID: a71ff4fc-d7cc-4fe0-a9b4-ebb54bd532e5
+2023-11-06 15:43:05 [INFO] Using cached response
+2023-11-06 15:43:05 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+import matplotlib.pyplot as plt
+import io
+import base64
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    
+    # Analyze
+    plt.bar(df['country'], df['gdp'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.xticks(rotation=45)
+    
+    # Save the plot to a buffer
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    
+    # Convert the plot to base64 value
+    plot_base64 = base64.b64encode(buffer.getvalue()).decode()
+    
+    # Close the plot
+    plt.close()
+    
+    return {"type": "plot", "value": plot_base64}
+```
+
+2023-11-06 15:43:05 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    plt.bar(df['country'], df['gdp'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.xticks(rotation=45)
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plot_base64 = base64.b64encode(buffer.getvalue()).decode()
+    plt.close()
+    return {'type': 'plot', 'value': plot_base64}
+        ```
+2023-11-06 15:43:05 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:43:05 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:43:05 [INFO] Answer: {'type': 'plot', 'value': 'iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjcuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/bCgiHAAAACXBIWXMAAA9hAAAPYQGoP6dpAABnlklEQVR4nO3deXhM1/8H8PckJBFZ0OyEhARVJLFFNLFUCGJtrVWR2LVRGqqitau0qr60Te07QS2l9iUtitS+1q522awhSEg+vz88c3+ZJiEqycy479fzzMPce+bMuTOTue85955zNSIiICIiIiLVMNF3A4iIiIiocDEAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARGa358+dDo9Hg4MGD+m4KEZFRYQAkohe6dOkSwsPDUbFiRVhaWsLS0hJVqlTBJ598guPHj+uUHT16NDQajXKztLRE2bJl0apVK8ybNw9paWnZ6g8NDdV5jI2NDby8vPD999/nWF6fduzYgffffx9OTk4wMzODg4MDWrVqhdWrV+u7aQCAR48eYfTo0dixY4e+m0JEBq6IvhtARIZr/fr16NSpE4oUKYKuXbvCy8sLJiYmOHPmDFavXo1p06bh0qVLKFeunM7jpk2bBisrK6SlpeHGjRvYsmULevTogSlTpmD9+vVwdXXVKW9ubo7Zs2cDAO7du4dVq1ZhyJAhOHDgAJYtW1Zo2/sio0aNwtixY+Hp6Ym+ffuiXLlyuH37NjZu3IgPPvgAS5YswYcffqjXNj569AhjxowBADRs2FCvbSEiw8YASEQ5unjxIjp37oxy5cohNjYWzs7OOuu//fZb/PzzzzAxyX4goX379rCzs1Pujxw5EkuWLEFISAg6dOiAv/76S6d8kSJF8NFHHyn3P/74Y/j6+mL58uWYPHkyXFxc8nnrXs3KlSsxduxYtG/fHjExMShatKiy7vPPP8eWLVvw9OlTPbbwv0lNTUXx4sX13Qwi0gMeAiaiHE2cOBGpqamYN29etvAHPA9tn376abbevNx07doVvXr1wr59+7Bt27YXljUxMVF6sC5fvvzSuh89eoS+ffvirbfego2NDUJCQnD37l1lfffu3WFnZ5djSGvatCkqVar0wvpHjBiBUqVKYe7cuTrhTysoKAgtW7ZU7iclJaFnz55wdHSEhYUFvLy8sGDBAp3H7NixAxqNJtvh2suXL0Oj0WD+/PnKstDQUFhZWeHGjRto27YtrKysYG9vjyFDhiAjI0N5nL29PQBgzJgxyiH10aNH69Rx8eJFtGjRAtbW1ujatStGjRqFokWLIjk5Odt29enTByVKlMCTJ09e+PoQkfFhACSiHK1fvx4eHh7w9fXNtzq7desGANi6detLy168eBEA8NZbb720bHh4OE6fPo3Ro0cjJCQES5YsQdu2bSEiyvPevn0bW7Zs0XlcQkICfv/9d53ex387f/48zpw5g7Zt28La2vqlbXn8+DEaNmyIRYsWoWvXrvjuu+9ga2uL0NBQTJ069aWPz01GRgaCgoLw1ltvYdKkSWjQoAG+//57zJw5EwBgb2+PadOmAQDatWuHRYsWYdGiRXj//feVOp49e4agoCA4ODhg0qRJ+OCDD9CtWzc8e/YMy5cv13m+9PR0rFy5Eh988AEsLCz+c7uJyDDxEDARZZOSkoKbN2+ibdu22dbdu3cPz549U+4XL14cxYoVy1O9VatWBfD/4S6rW7duAQDu37+PX375BWvWrEH16tVf2jsHAGZmZoiNjVV658qVK4ehQ4di3bp1aN26Nd577z2UKVMGixcv1umpW7p0KTIzM18YAE+fPg0AqFatWp62cebMmTh9+jQWL16Mrl27AgD69euHBg0a4KuvvkKPHj3yFCT/7cmTJ+jUqRNGjBih1FmjRg3MmTMH/fv3R/HixdG+fXv0798f1atXz3Gb0tLS0KFDB0RFReks9/Pzw+LFixEeHq4s27BhA+7evauEdiJ6s7AHkIiySUlJAQBYWVllW9ewYUPY29srt+jo6DzXq63vwYMHOstTU1OV+jw8PDB8+HD4+fnh119/zVO9ffr00Tk0279/fxQpUgQbN24E8PyQcteuXfHbb7/pPPeSJUtQr149uLu751q39rXIa2jbuHEjnJyc0KVLF2VZ0aJF8emnn+Lhw4fYuXNnnurJSb9+/XTuBwQE4J9//nmlOvr3759tWUhICPbt26cTzJcsWQJXV1c0aNDgvzWWiAwaA2A+2bVrF1q1agUXFxdoNBqsWbPmlR7/5MkThIaGolq1aihSpEiOPS+7d+/Gu+++i7feegvFihVD5cqV8b///S9/NoAoC23YefjwYbZ1M2bMwLZt27B48eJXrldb37/DlIWFBbZt24Zt27Zh165duHbtGvbs2YPy5cvnqV5PT0+d+1ZWVnB2dtY5fzAkJASPHz9WQuXZs2dx6NChl/Zw2djYAMgeWnNz5coVeHp6Zhsc8/bbbyvr/wsLCwvlHD+tkiVL6pzr+DJFihRBmTJlsi3v1KkTzM3NsWTJEgDPe2HXr1+Prl27QqPR/Kf2EpFh4yHgfJKamgovLy/06NFD55ybvMrIyECxYsXw6aefYtWqVTmWKV68OMLDw1G9enUUL14cu3fvRt++fVG8eHH06dPndTeBSGFrawtnZ2ecPHky2zrtOYF5GZzxb9r6PDw8dJabmpoiMDDw1Rv6CqpUqYKaNWti8eLFCAkJweLFi2FmZoaOHTu+8HGVK1cGAJw4cSJf25NbsNIO6vg3U1PT135Oc3PzHEdtlyxZEi1btsSSJUswcuRIrFy5EmlpaS88NE5Exo09gPmkefPmGD9+PNq1a5fj+rS0NAwZMgSlS5dG8eLF4evrqzP6r3jx4pg2bRp69+4NJyenHOvw8fFBly5d8M4778DNzQ0fffQRgoKC8OeffxbEJpHKBQcH48KFC9i/f3++1blo0SIAz0fN5qfz58/r3H/48CHi4+Ph5uamszwkJAS///474uPjERMTg+DgYJQsWfKFdVesWBGVKlXC2rVrc+wR/bdy5crh/PnzyMzM1Fl+5swZZT0A5Xnv3bunU+6/9hACuYfKvAgJCcG5c+dw4MABLFmyBD4+PnjnnXf+c31EZNgYAAtJeHg44uLisGzZMhw/fhwdOnRAs2bNsu24XsWRI0ewd+9enqNDBWLo0KGwtLREjx49kJiYmG29doRtXsXExGD27Nnw8/ND48aN86uZAJ4PvMg6xcu0adPw7NkzNG/eXKdcly5doNFoMHDgQPzzzz957uEaM2YMbt++jV69eukMgNHaunUr1q9fDwBo0aIFEhISdEbVPnv2DD/++COsrKyUv9dy5crB1NQUu3bt0qnr559/zttG58DS0hJA9lCZF82bN4ednR2+/fZb7Ny5k71/RG84HgIuBFevXsW8efNw9epVZULbIUOGYPPmzZg3bx4mTJjwSvWVKVMGycnJePbsGUaPHo1evXoVRLNJ5Tw9PRETE4MuXbqgUqVKypVARASXLl1CTEwMTExMcjynbOXKlbCyskJ6erpyJZA9e/bAy8sLK1asyPe2pqeno3HjxujYsSPOnj2Ln3/+Gf7+/mjdurVOOXt7ezRr1gwrVqxAiRIlEBwcnKf6O3XqhBMnTuDrr7/GkSNH0KVLF+VKIJs3b0ZsbCxiYmIAPB+QMmPGDISGhuLQoUNwc3PDypUrsWfPHkyZMkU5/9HW1hYdOnTAjz/+CI1GgwoVKmD9+vVISkr6z69DsWLFUKVKFSxfvhwVK1ZEqVKlULVqVWX09YsULVoUnTt3xk8//QRTU1OdQSxE9AYSyncA5Ndff1Xur1+/XgBI8eLFdW5FihSRjh07Znt89+7dpU2bNrnW/88//8jx48dl5syZUqpUKYmJiSmArSB67sKFC9K/f3/x8PAQCwsLKVasmFSuXFn69esnR48e1Sk7atQoAaDcLCwspEyZMtKyZUuZO3euPHnyJFv93bt3l+LFi/+nts2bN08AyM6dO6VPnz5SsmRJsbKykq5du8rt27dzfMwvv/wiAKRPnz6v/HyxsbHSpk0bcXBwkCJFioi9vb20atVK1q5dq1MuMTFRwsLCxM7OTszMzKRatWoyb968bPUlJyfLBx98IJaWllKyZEnp27evnDx5UgDolM/tNdK+3lnt3btXatasKWZmZgJARo0a9cI6stq/f78AkKZNm+btBSEio6URecXjOPRSGo0Gv/76qzKSd/ny5ejatSv+/vvvbCdyW1lZZTvnLzQ0FPfu3cvTSOLx48dj0aJFOHv2bH41n+iNtnbtWrRt2xa7du1CQECAvptjUI4dOwZvb28sXLiQ8/8RveF4CLgQ+Pj4ICMjA0lJSfm+w8nMzERaWlq+1kn0Jps1axbKly8Pf39/fTfF4MyaNQtWVlb/aSYDIjIuDID55OHDh7hw4YJy/9KlSzh69ChKlSqFihUromvXrggJCcH3338PHx8fJCcnIzY2FtWrV1fOQzp16hTS09Nx584dPHjwAEePHgUAeHt7AwCio6NRtmxZZVqKXbt2YdKkSfj0008LdVuJjJF2ANaGDRswdepUzm+Xxbp163Dq1CnMnDkT4eHhKF68uL6bREQFjIeA88mOHTvQqFGjbMu7d++O+fPn4+nTpxg/fjwWLlyIGzduwM7ODnXr1sWYMWOUS0y5ubnlOAWE9i368ccfMWPGDFy6dAlFihRBhQoV0Lt3b/Tt2zfHub2I6P9pNBpYWVmhU6dOmD59OooU4e9fLTc3NyQmJiIoKAiLFi36T5eqIyLjwgBIREREpDLsNiIiIiJSGQZAIiIiIpVhACQiIiJSGZ4F/RoyMzNx8+ZNWFtbc0QhERGRkRARPHjwAC4uLuodRKm/OajzbsKECVKrVi2xsrISe3t7adOmjZw5c+alj/vll1+kUqVKYm5uLlWrVpUNGzborM/MzJQRI0aIk5OTWFhYSOPGjeXcuXN5bte1a9d0rnrAG2+88cYbb7wZz+3atWuvnEneFEYxCrhZs2bo3LkzateujWfPnmH48OE4efIkTp06let8VXv37kX9+vURFRWFli1bIiYmBt9++y0OHz6sXBfz22+/RVRUFBYsWAB3d3eMGDECJ06cwKlTp2BhYfHSdt2/fx8lSpTAtWvXYGNjk6/bTERERAUjJSUFrq6uuHfvHmxtbfXdHL0wigD4b8nJyXBwcMDOnTtRv379HMt06tQJqampWL9+vbKsbt268Pb2xvTp0yEicHFxweDBgzFkyBAAzwOdo6Mj5s+fj86dO7+0HSkpKbC1tcX9+/cZAImIiIwE999GOgjk/v37AIBSpUrlWiYuLg6BgYE6y4KCghAXFwfg+ZU6EhISdMrY2trC19dXKfNvaWlpSElJ0bkRERERGRujC4CZmZkYNGgQ3n33XeVQbk4SEhLg6Oios8zR0REJCQnKeu2y3Mr8W1RUFGxtbZWbq6vr62wKERERkV4YXQD85JNPcPLkSSxbtqzQnzsyMhL3799XbteuXSv0NhARERG9LqOaBiY8PBzr16/Hrl27UKZMmReWdXJyQmJios6yxMREODk5Keu1y5ydnXXKeHt751inubk5zM3NX2MLiIiIiPTPKHoARQTh4eH49ddf8fvvv8Pd3f2lj/Hz80NsbKzOsm3btsHPzw8A4O7uDicnJ50yKSkp2Ldvn1KGiIiI6E1kFD2An3zyCWJiYrB27VpYW1sr5+jZ2tqiWLFiAICQkBCULl0aUVFRAICBAweiQYMG+P777xEcHIxly5bh4MGDmDlzJgBAo9Fg0KBBGD9+PDw9PZVpYFxcXNC2bVu9bCcRERFRYTCKADht2jQAQMOGDXWWz5s3D6GhoQCAq1ev6szmXa9ePcTExOCrr77C8OHD4enpiTVr1ugMHBk6dChSU1PRp08f3Lt3D/7+/ti8eXOe5gAkIiIiMlZGOQ+goeA8QkRERMaH+28jOQeQiIiIiPIPAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyhjFPIBq5TZsg76boOPyN8H6bgIRERHlA/YAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREamMUQTAXbt2oVWrVnBxcYFGo8GaNWteWD40NBQajSbb7Z133lHKjB49Otv6ypUrF/CWEBEREemfUQTA1NRUeHl5ITo6Ok/lp06divj4eOV27do1lCpVCh06dNAp98477+iU2717d0E0n4iIiMigFNF3A/KiefPmaN68eZ7L29rawtbWVrm/Zs0a3L17F2FhYTrlihQpAicnp3xrJxEREZExMIoewNc1Z84cBAYGoly5cjrLz58/DxcXF5QvXx5du3bF1atX9dRCIiIiosJjFD2Ar+PmzZvYtGkTYmJidJb7+vpi/vz5qFSpEuLj4zFmzBgEBATg5MmTsLa2zrGutLQ0pKWlKfdTUlIKtO1EREREBeGND4ALFixAiRIl0LZtW53lWQ8pV69eHb6+vihXrhx++eUX9OzZM8e6oqKiMGbMmIJsLhEREVGBe6MPAYsI5s6di27dusHMzOyFZUuUKIGKFSviwoULuZaJjIzE/fv3ldu1a9fyu8lEREREBe6NDoA7d+7EhQsXcu3Ry+rhw4e4ePEinJ2dcy1jbm4OGxsbnRsRERGRsTGKAPjw4UMcPXoUR48eBQBcunQJR48eVQZtREZGIiQkJNvj5syZA19fX1StWjXbuiFDhmDnzp24fPky9u7di3bt2sHU1BRdunQp0G0hIiIi0jejOAfw4MGDaNSokXI/IiICANC9e3fMnz8f8fHx2Ubw3r9/H6tWrcLUqVNzrPP69evo0qULbt++DXt7e/j7++Ovv/6Cvb19wW0IERERkQHQiIjouxHGKiUlBba2trh//36BHA52G7Yh3+t8HZe/CdZ3E4iIiF5bQe+/jYFRHAImIiIiovzDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCpjFAFw165daNWqFVxcXKDRaLBmzZoXlt+xYwc0Gk22W0JCgk656OhouLm5wcLCAr6+vti/f38BbgURERGRYTCKAJiamgovLy9ER0e/0uPOnj2L+Ph45ebg4KCsW758OSIiIjBq1CgcPnwYXl5eCAoKQlJSUn43n4iIiMigFNF3A/KiefPmaN68+Ss/zsHBASVKlMhx3eTJk9G7d2+EhYUBAKZPn44NGzZg7ty5GDZs2Os0l4iIiMigGUUP4H/l7e0NZ2dnNGnSBHv27FGWp6en49ChQwgMDFSWmZiYIDAwEHFxcfpoKhEREVGheSMDoLOzM6ZPn45Vq1Zh1apVcHV1RcOGDXH48GEAwK1bt5CRkQFHR0edxzk6OmY7TzCrtLQ0pKSk6NyIiIiIjI1RHAJ+VZUqVUKlSpWU+/Xq1cPFixfxv//9D4sWLfrP9UZFRWHMmDH50UQiIiIivXkjewBzUqdOHVy4cAEAYGdnB1NTUyQmJuqUSUxMhJOTU651REZG4v79+8rt2rVrBdpmIiIiooKgmgB49OhRODs7AwDMzMxQs2ZNxMbGKuszMzMRGxsLPz+/XOswNzeHjY2Nzo2IiIjI2BjFIeCHDx8qvXcAcOnSJRw9ehSlSpVC2bJlERkZiRs3bmDhwoUAgClTpsDd3R3vvPMOnjx5gtmzZ+P333/H1q1blToiIiLQvXt31KpVC3Xq1MGUKVOQmpqqjAomIiIielMZRQA8ePAgGjVqpNyPiIgAAHTv3h3z589HfHw8rl69qqxPT0/H4MGDcePGDVhaWqJ69erYvn27Th2dOnVCcnIyRo4ciYSEBHh7e2Pz5s3ZBoYQERERvWk0IiL6boSxSklJga2tLe7fv18gh4Pdhm3I9zpfx+VvgvXdBCIiotdW0PtvY2AUPYBERERU8NjxoB6qGQRCRERERM8xABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpjFEEwF27dqFVq1ZwcXGBRqPBmjVrXlh+9erVaNKkCezt7WFjYwM/Pz9s2bJFp8zo0aOh0Wh0bpUrVy7ArSAiIiIyDEYRAFNTU+Hl5YXo6Og8ld+1axeaNGmCjRs34tChQ2jUqBFatWqFI0eO6JR75513EB8fr9x2795dEM0nIiIiMihF9N2AvGjevDmaN2+e5/JTpkzRuT9hwgSsXbsW69atg4+Pj7K8SJEicHJyyq9mEhERERkFo+gBfF2ZmZl48OABSpUqpbP8/PnzcHFxQfny5dG1a1dcvXr1hfWkpaUhJSVF50ZERERkbFQRACdNmoSHDx+iY8eOyjJfX1/Mnz8fmzdvxrRp03Dp0iUEBATgwYMHudYTFRUFW1tb5ebq6loYzSciIiLKV298AIyJicGYMWPwyy+/wMHBQVnevHlzdOjQAdWrV0dQUBA2btyIe/fu4Zdffsm1rsjISNy/f1+5Xbt2rTA2gYiIiChfGcU5gP/VsmXL0KtXL6xYsQKBgYEvLFuiRAlUrFgRFy5cyLWMubk5zM3N87uZRERERIXqje0BXLp0KcLCwrB06VIEBwe/tPzDhw9x8eJFODs7F0LriIiIiPTHKHoAHz58qNMzd+nSJRw9ehSlSpVC2bJlERkZiRs3bmDhwoUAnh/27d69O6ZOnQpfX18kJCQAAIoVKwZbW1sAwJAhQ9CqVSuUK1cON2/exKhRo2BqaoouXboU/gYSERERFSKj6AE8ePAgfHx8lClcIiIi4OPjg5EjRwIA4uPjdUbwzpw5E8+ePcMnn3wCZ2dn5TZw4EClzPXr19GlSxdUqlQJHTt2xFtvvYW//voL9vb2hbtxRERERIXMKHoAGzZsCBHJdf38+fN17u/YseOldS5btuw1W0VERERknIyiB5CIiIiI8g8DIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqUyRgqo4JSUF+/btQ3p6OurUqQN7e/uCeioiIiIiegUFEgCPHj2KFi1aIDExESICa2tr/PLLLwgKCiqIpyMiIiKiV1Agh4C/+OILuLu7Y/fu3Th06BAaN26M8PDwgngqIiIiInpFBdIDeOjQIWzduhU1atQAAMydOxelSpVCSkoKbGxsCuIpiYiIiCiPCqQH8M6dOyhTpoxyv0SJEihevDhu375dEE9HRERERK+gwAaBnDp1CgkJCcp9EcHp06fx4MEDZVn16tUL6umJiIiIKBcFFgAbN24MEdFZ1rJlS2g0GogINBoNMjIyCurpiYiIiCgXBRIAL126VBDVEhEREVE+KJAAWK5cuYKoloiIiIjyQYEdAgaA8+fPY+3atbh8+TI0Gg3c3d3Rtm1blC9fviCfloiIiIheoMACYFRUFEaOHInMzEw4ODhARJCcnIxhw4ZhwoQJGDJkSEE9NRERERG9QIFMA/PHH3/gq6++wpdffolbt24hPj4eCQkJSgAcNmwYdu3alef6du3ahVatWsHFxQUajQZr1qx56WN27NiBGjVqwNzcHB4eHpg/f362MtHR0XBz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uHDhQo7rzc3NYWNjo3MjIiIiMjZGEQDNzMxQs2ZNxMbGKssyMzMRGxsLPz+/Fz52xYoVSEtLw0cfffTS57l+/Tpu374NZ2fn124zERERkaEyigAIABEREZg1axYWLFiA06dPo3///khNTUVYWBgAICQkBJGRkdkeN2fOHLRt2xZvvfWWzvKHDx/i888/x19//YXLly8jNjYWbdq0gYeHB4KCggplm4iIiIj0wWjOAezUqROSk5MxcuRIJCQkwNvbG5s3b1YGhly9ehUmJrp59uzZs9i9eze2bt2arT5TU1McP34cCxYswL179+Di4oKmTZti3LhxnAuQiIiI3mhGEwABIDw8HOHh4Tmu27FjR7ZllSpVgojkWL5YsWLYsmVLfjaPiIiIyCgYzSFgIiIiIsofDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKmNUATA6Ohpubm6wsLCAr68v9u/fn2vZ+fPnQ6PR6NwsLCx0yogIRo4cCWdnZxQrVgyBgYE4f/58QW8GERERkV4ZTQBcvnw5IiIiMGrUKBw+fBheXl4ICgpCUlJSro+xsbFBfHy8crty5YrO+okTJ+KHH37A9OnTsW/fPhQvXhxBQUF48uRJQW8OERERkd4YTQCcPHkyevfujbCwMFSpUgXTp0+HpaUl5s6dm+tjNBoNnJyclJujo6OyTkQwZcoUfPXVV2jTpg2qV6+OhQsX4ubNm1izZk0hbBERERGRfhhFAExPT8ehQ4cQGBioLDMxMUFgYCDi4uJyfdzDhw9Rrlw5uLq6ok2bNvj777+VdZcuXUJCQoJOnba2tvD19X1hnURERETGzigC4K1bt5CRkaHTgwcAjo6OSEhIyPExlSpVwty5c7F27VosXrwYmZmZqFevHq5fvw4AyuNe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'}
+2023-11-06 15:43:05 [INFO] Executed in: 0.32274532318115234s
+2023-11-06 15:43:30 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each barfirst clear the previous plt, at last always convert the graph image to base64 value and do not forget to print the Base64 value
+2023-11-06 15:43:30 [INFO] Running PandasAI with openai LLM...
+2023-11-06 15:43:30 [INFO] Prompt ID: 1159d0f6-6a75-4264-ad72-8421d5a621db
+2023-11-06 15:43:30 [INFO] Using cached response
+2023-11-06 15:43:30 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+import matplotlib.pyplot as plt
+import io
+import base64
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    
+    # Analyze
+    plt.bar(df['country'], df['gdp'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.xticks(rotation=45)
+    
+    # Save the plot to a buffer
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    
+    # Convert the plot to base64 value
+    plot_base64 = base64.b64encode(buffer.getvalue()).decode()
+    
+    # Close the plot
+    plt.close()
+    
+    return {"type": "plot", "value": plot_base64}
+```
+
+2023-11-06 15:43:30 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    plt.bar(df['country'], df['gdp'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.xticks(rotation=45)
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plot_base64 = base64.b64encode(buffer.getvalue()).decode()
+    plt.close()
+    return {'type': 'plot', 'value': plot_base64}
+        ```
+2023-11-06 15:43:30 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:43:30 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:43:30 [INFO] Answer: {'type': 'plot', 'value': 'iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjcuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/bCgiHAAAACXBIWXMAAA9hAAAPYQGoP6dpAABnlklEQVR4nO3deXhM1/8H8PckJBFZ0OyEhARVJLFFNLFUCGJtrVWR2LVRGqqitau0qr60Te07QS2l9iUtitS+1q522awhSEg+vz88c3+ZJiEqycy479fzzMPce+bMuTOTue85955zNSIiICIiIiLVMNF3A4iIiIiocDEAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARGa358+dDo9Hg4MGD+m4KEZFRYQAkohe6dOkSwsPDUbFiRVhaWsLS0hJVqlTBJ598guPHj+uUHT16NDQajXKztLRE2bJl0apVK8ybNw9paWnZ6g8NDdV5jI2NDby8vPD999/nWF6fduzYgffffx9OTk4wMzODg4MDWrVqhdWrV+u7aQCAR48eYfTo0dixY4e+m0JEBq6IvhtARIZr/fr16NSpE4oUKYKuXbvCy8sLJiYmOHPmDFavXo1p06bh0qVLKFeunM7jpk2bBisrK6SlpeHGjRvYsmULevTogSlTpmD9+vVwdXXVKW9ubo7Zs2cDAO7du4dVq1ZhyJAhOHDgAJYtW1Zo2/sio0aNwtixY+Hp6Ym+ffuiXLlyuH37NjZu3IgPPvgAS5YswYcffqjXNj569AhjxowBADRs2FCvbSEiw8YASEQ5unjxIjp37oxy5cohNjYWzs7OOuu//fZb/PzzzzAxyX4goX379rCzs1Pujxw5EkuWLEFISAg6dOiAv/76S6d8kSJF8NFHHyn3P/74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FD2An3zyCWJiYrB27VpYW1sr5+jZ2tqiWLFiAICQkBCULl0aUVFRAICBAweiQYMG+P777xEcHIxly5bh4MGDmDlzJgBAo9Fg0KBBGD9+PDw9PZVpYFxcXNC2bVu9bCcRERFRYTCKADht2jQAQMOGDXWWz5s3D6GhoQCAq1ev6szmXa9ePcTExOCrr77C8OHD4enpiTVr1ugMHBk6dChSU1PRp08f3Lt3D/7+/ti8eXOe5gAkIiIiMlZGOQ+goeA8QkRERMaH+28jOQeQiIiIiPIPAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyhjFPIBq5TZsg76boOPyN8H6bgIRERHlA/YAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREakMAyARERGRyjAAEhEREamMUQTAXbt2oVWrVnBxcYFGo8GaNWteWD40NBQajSbb7Z133lHKjB49Otv6ypUrF/CWEBEREemfUQTA1NRUeHl5ITo6Ok/lp06divj4eOV27do1lCpVCh06dNAp98477+iU2717d0E0n4iIiMigFNF3A/KiefPmaN68eZ7L29rawtbWVrm/Zs0a3L17F2FhYTrlihQpAicnp3xrJxEREZExMIoewNc1Z84cBAYGoly5cjrLz58/DxcXF5QvXx5du3bF1atX9dRCIiIiosJjFD2Ar+PmzZvYtGkTYmJidJb7+vpi/vz5qFSpEuLj4zFmzBgEBATg5MmTsLa2zrGutLQ0pKWlKfdTUlIKtO1EREREBeGND4ALFixAiRIl0LZtW53lWQ8pV69eHb6+vihXrhx++eUX9OzZM8e6oqKiMGbMmIJsLhEREVGBe6MPAYsI5s6di27dusHMzOyFZUuUKIGKFSviwoULuZaJjIzE/fv3ldu1a9fyu8lEREREBe6NDoA7d+7EhQsXcu3Ry+rhw4e4ePEinJ2dcy1jbm4OGxsbnRsRERGRsTGKAPjw4UMcPXoUR48eBQBcunQJR48eVQZtREZGIiQkJNvj5syZA19fX1StWjXbuiFDhmDnzp24fPky9u7di3bt2sHU1BRdunQp0G0hIiIi0jejOAfw4MGDaNSokXI/IiICANC9e3fMnz8f8fHx2Ubw3r9/H6tWrcLUqVNzrPP69evo0qULbt++DXt7e/j7++Ovv/6Cvb19wW0IERERkQHQiIjouxHGKiUlBba2trh//36BHA52G7Yh3+t8HZe/CdZ3E4iIiF5bQe+/jYFRHAImIiIiovzDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCrDAEhERESkMgyARERERCpjFAFw165daNWqFVxcXKDRaLBmzZoXlt+xYwc0Gk22W0JCgk656OhouLm5wcLCAr6+vti/f38BbgURERGRYTCKAJiamgovLy9ER0e/0uPOnj2L+Ph45ebg4KCsW758OSIiIjBq1CgcPnwYXl5eCAoKQlJSUn43n4iIiMigFNF3A/KiefPmaN68+Ss/zsHBASVKlMhx3eTJk9G7d2+EhYUBAKZPn44NGzZg7ty5GDZs2Os0l4iIiMigGUUP4H/l7e0NZ2dnNGnSBHv27FGWp6en49ChQwgMDFSWmZiYIDAwEHFxcfpoKhEREVGheSMDoLOzM6ZPn45Vq1Zh1apVcHV1RcOGDXH48GEAwK1bt5CRkQFHR0edxzk6OmY7TzCrtLQ0pKSk6NyIiIiIjI1RHAJ+VZUqVUKlSpWU+/Xq1cPFixfxv//9D4sWLfrP9UZFRWHMmDH50UQiIiIivXkjewBzUqdOHVy4cAEAYGdnB1NTUyQmJuqUSUxMhJOTU651REZG4v79+8rt2rVrBdpmIiIiooKgmgB49OhRODs7AwDMzMxQs2ZNxMbGKuszMzMRGxsLPz+/XOswNzeHjY2Nzo2IiIjI2BjFIeCHDx8qvXcAcOnSJRw9ehSlSpVC2bJlERkZiRs3bmDhwoUAgClTpsDd3R3vvPMOnjx5gtmzZ+P333/H1q1blToiIiLQvXt31KpVC3Xq1MGUKVOQmpqqjAomIiIielMZRQA8ePAgGjVqpNyPiIgAAHTv3h3z589HfHw8rl69qqxPT0/H4MGDcePGDVhaWqJ69erYvn27Th2dOnVCcnIyRo4ciYSEBHh7e2Pz5s3ZBoYQERERvWk0IiL6boSxSklJga2tLe7fv18gh4Pdhm3I9zpfx+VvgvXdBCIiotdW0PtvY2AUPYBERERU8NjxoB6qGQRCRERERM8xABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpDAMgERERkcowABIRERGpjFEEwF27dqFVq1ZwcXGBRqPBmjVrXlh+9erVaNKkCezt7WFjYwM/Pz9s2bJFp8zo0aOh0Wh0bpUrVy7ArSAiIiIyDEYRAFNTU+Hl5YXo6Og8ld+1axeaNGmCjRs34tChQ2jUqBFatWqFI0eO6JR75513EB8fr9x2795dEM0nIiIiMihF9N2AvGjevDmaN2+e5/JTpkzRuT9hwgSsXbsW69atg4+Pj7K8SJEicHJyyq9mEhERERkFo+gBfF2ZmZl48OABSpUqpbP8/PnzcHFxQfny5dG1a1dcvXr1hfWkpaUhJSVF50ZERERkbFQRACdNmoSHDx+iY8eOyjJfX1/Mnz8fmzdvxrRp03Dp0iUEBATgwYMHudYTFRUFW1tb5ebq6loYzSciIiLKV298AIyJicGYMWPwyy+/wMHBQVnevHlzdOjQAdWrV0dQUBA2btyIe/fu4Zdffsm1rsjISNy/f1+5Xbt2rTA2gYiIiChfGcU5gP/VsmXL0KtXL6xYsQKBgYEvLFuiRAlUrFgRFy5cyLWMubk5zM3N87uZRERERIXqje0BXLp0KcLCwrB06VIEBwe/tPzDhw9x8eJFODs7F0LriIiIiPTHKHoAHz58qNMzd+nSJRw9ehSlSpVC2bJlERkZiRs3bmDhwoUAnh/27d69O6ZOnQpfX18kJCQAAIoVKwZbW1sAwJAhQ9CqVSuUK1cON2/exKhRo2BqaoouXboU/gYSERERFSKj6AE8ePAgfHx8lClcIiIi4OPjg5EjRwIA4uPjdUbwzpw5E8+ePcMnn3wCZ2dn5TZw4EClzPXr19GlSxdUqlQJHTt2xFtvvYW//voL9vb2hbtxRERERIXMKHoAGzZsCBHJdf38+fN17u/YseOldS5btuw1W0VERERknIyiB5CIiIiI8g8DIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqQwDIBEREZHKMAASERERqUyRgqo4JSUF+/btQ3p6OurUqQN7e/uCeioiIiIiegUFEgCPHj2KFi1aIDExESICa2tr/PLLLwgKCiqIpyMiIiKiV1Agh4C/+OILuLu7Y/fu3Th06BAaN26M8PDwgngqIiIiInpFBdIDeOjQIWzduhU1atQAAMydOxelSpVCSkoKbGxsCuIpiYiIiCiPCqQH8M6dOyhTpoxyv0SJEihevDhu375dEE9HRERERK+gwAaBnDp1CgkJCcp9EcHp06fx4MEDZVn16tUL6umJiIiIKBcFFgAbN24MEdFZ1rJlS2g0GogINBoNMjIyCurpiYiIiCgXBRIAL126VBDVEhEREVE+KJAAWK5cuYKoloiIiIjyQYEdAgaA8+fPY+3atbh8+TI0Gg3c3d3Rtm1blC9fviCfloiIiIheoMACYFRUFEaOHInMzEw4ODhARJCcnIxhw4ZhwoQJGDJkSEE9NRERERG9QIFMA/PHH3/gq6++wpdffolbt24hPj4eCQkJSgAcNmwYdu3alef6du3ahVatWsHFxQUajQZr1qx56WN27NiBGjVqwNzcHB4eHpg/f362MtHR0XBz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uHDhQo7rzc3NYWNjo3MjIiIiMjZGEQDNzMxQs2ZNxMbGKssyMzMRGxsLPz+/Fz52xYoVSEtLw0cfffTS57l+/Tpu374NZ2fn124zERERkaEyigAIABEREZg1axYWLFiA06dPo3///khNTUVYWBgAICQkBJGRkdkeN2fOHLRt2xZvvfWWzvKHDx/i888/x19//YXLly8jNjYWbdq0gYeHB4KCggplm4iIiIj0wWjOAezUqROSk5MxcuRIJCQkwNvbG5s3b1YGhly9ehUmJrp59uzZs9i9eze2bt2arT5TU1McP34cCxYswL179+Di4oKmTZti3LhxnAuQiIiI3mhGEwABIDw8HOHh4Tmu27FjR7ZllSpVgojkWL5YsWLYsmVLfjaPiIiIyCgYzSFgIiIiIsofDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKsMASERERKQyDIBEREREKmNUATA6Ohpubm6wsLCAr68v9u/fn2vZ+fPnQ6PR6NwsLCx0yogIRo4cCWdnZxQrVgyBgYE4f/58QW8GERERkV4ZTQBcvnw5IiIiMGrUKBw+fBheXl4ICgpCUlJSro+xsbFBfHy8crty5YrO+okTJ+KHH37A9OnTsW/fPhQvXhxBQUF48uRJQW8OERERkd4YTQCcPHkyevfujbCwMFSpUgXTp0+HpaUl5s6dm+tjNBoNnJyclJujo6OyTkQwZcoUfPXVV2jTpg2qV6+OhQsX4ubNm1izZk0hbBERERGRfhhFAExPT8ehQ4cQGBioLDMxMUFgYCDi4uJyfdzDhw9Rrlw5uLq6ok2bNvj777+VdZcuXUJCQoJOnba2tvD19X1hnURERETGzigC4K1bt5CRkaHTgwcAjo6OSEhIyPExlSpVwty5c7F27VosXrwYmZmZqFevHq5fvw4AyuNe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'}
+2023-11-06 15:43:30 [INFO] Executed in: 0.291027307510376s
+2023-11-06 15:43:36 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+2023-11-06 15:43:36 [INFO] Running PandasAI with openai LLM...
+2023-11-06 15:43:36 [INFO] Prompt ID: 9dec9a88-80cc-4a14-ad88-2f47b0b5b335
+2023-11-06 15:43:36 [INFO] Using cached response
+2023-11-06 15:43:36 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    # No processing needed
+    
+    # Analyze
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    
+    return {"type": "plot", "value": "temp_chart.png"}
+```
+
+2023-11-06 15:43:36 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    return {'type': 'plot', 'value': 'temp_chart.png'}
+        ```
+2023-11-06 15:43:36 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:43:36 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:43:36 [INFO] Answer: {'type': 'plot', 'value': 'temp_chart.png'}
+2023-11-06 15:43:36 [INFO] Executed in: 0.31113338470458984s
+2023-11-06 15:43:55 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+2023-11-06 15:43:55 [INFO] Running PandasAI with openai LLM...
+2023-11-06 15:43:55 [INFO] Prompt ID: 8be7924e-c95e-4b93-b483-bfa9a7b6dd16
+2023-11-06 15:43:56 [INFO] Using cached response
+2023-11-06 15:43:56 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    # No processing needed
+    
+    # Analyze
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    
+    return {"type": "plot", "value": "temp_chart.png"}
+```
+
+2023-11-06 15:43:56 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    return {'type': 'plot', 'value': 'temp_chart.png'}
+        ```
+2023-11-06 15:43:56 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:43:56 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:43:56 [INFO] Answer: {'type': 'plot', 'value': 'temp_chart.png'}
+2023-11-06 15:43:56 [INFO] Executed in: 0.29302144050598145s
+2023-11-06 15:52:48 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+2023-11-06 15:52:48 [INFO] Running PandasAI with openai LLM...
+2023-11-06 15:52:48 [INFO] Prompt ID: e05993e0-26fa-40fa-a230-aeab7f784a62
+2023-11-06 15:52:48 [INFO] Using cached response
+2023-11-06 15:52:48 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    # No processing needed
+    
+    # Analyze
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    
+    return {"type": "plot", "value": "temp_chart.png"}
+```
+
+2023-11-06 15:52:48 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    return {'type': 'plot', 'value': 'temp_chart.png'}
+        ```
+2023-11-06 15:52:48 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:52:48 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 15:52:48 [INFO] Answer: {'type': 'plot', 'value': 'temp_chart.png'}
+2023-11-06 15:52:49 [INFO] Executed in: 0.38129496574401855s
+2023-11-06 16:01:22 [INFO] Question: 
+2023-11-06 16:01:22 [INFO] Running PandasAI with openai LLM...
+2023-11-06 16:01:22 [INFO] Prompt ID: 798cce77-d515-4322-885f-664d86a9276d
+2023-11-06 16:01:22 [INFO] Using prompt: 
+You are provided with the following pandas DataFrames:
+
+<dataframe>
+Dataframe dfs[0], with 10 rows and 2 columns.
+This is the metadata of the dataframe dfs[0]:
+country,gdp
+United States,19294482071552
+France,2411255037952
+Italy,1745433788416
+Germany,3435817336832
+United Kingdom,2891615567872
+</dataframe>
+
+<conversation>
+User 1: 
+</conversation>
+
+This is the initial python code to be updated:
+```python
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+```
+
+Using the provided dataframes (`dfs`), update the python code based on the last question in the conversation.
+
+Updated code:
+
+2023-11-06 16:01:37 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+2023-11-06 16:01:37 [INFO] Running PandasAI with openai LLM...
+2023-11-06 16:01:37 [INFO] Prompt ID: 0cf8753e-8c2d-46b1-a314-f39b75b315ba
+2023-11-06 16:01:37 [INFO] Using cached response
+2023-11-06 16:01:37 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    # No processing needed
+    
+    # Analyze
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    
+    return {"type": "plot", "value": "temp_chart.png"}
+```
+
+2023-11-06 16:01:37 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    return {'type': 'plot', 'value': 'temp_chart.png'}
+        ```
+2023-11-06 16:01:37 [INFO] Answer: {'type': 'plot', 'value': 'temp_chart.png'}
+2023-11-06 16:01:37 [INFO] Executed in: 0.23467445373535156s
+2023-11-06 16:01:37 [INFO] 127.0.0.1 - - [06/Nov/2023 16:01:37] "GET /get_image?text=Plot+the+histogram+of+countries+showing+for+each+the+gdp,+using+different+colors+for+each+bar HTTP/1.1" 200 -
+2023-11-06 16:01:51 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare: No preprocessing or cleaning needed
+    
+    # Process: Calculate the average GDP
+    avg_gdp = dfs[0]['gdp'].mean()
+    
+    # Analyze: Return the average GDP as a number
+    result = {
+        "type": "number",
+        "value": avg_gdp
+    }
+    
+    return result
+```
+
+2023-11-06 16:01:51 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    avg_gdp = dfs[0]['gdp'].mean()
+    result = {'type': 'number', 'value': avg_gdp}
+    return result
+        ```
+2023-11-06 16:01:51 [INFO] Answer: {'type': 'number', 'value': 5307077990809.6}
+2023-11-06 16:01:51 [INFO] Executed in: 29.543416500091553s
+2023-11-06 16:01:51 [INFO] 127.0.0.1 - - [06/Nov/2023 16:01:51] "GET /get_image HTTP/1.1" 200 -
+2023-11-06 16:03:05 [ERROR] Exception on /get_image [GET]
+Traceback (most recent call last):
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ipython-input-1-e4af0301be1d>", line 65, in get_image
+    df = SmartDataframe(df, config={"llm": llm})
+                        ^^
+UnboundLocalError: cannot access local variable 'df' where it is not associated with a value
+2023-11-06 16:03:05 [INFO] 127.0.0.1 - - [06/Nov/2023 16:03:05] "[35m[1mGET /get_image?text=Plot+the+histogram+of+countries+showing+for+each+the+gdp,+using+different+colors+for+each+bar HTTP/1.1[0m" 500 -
+2023-11-06 16:03:30 [ERROR] Exception on /get_image [GET]
+Traceback (most recent call last):
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ipython-input-1-e4af0301be1d>", line 65, in get_image
+    df = SmartDataframe(df, config={"llm": llm})
+                        ^^
+UnboundLocalError: cannot access local variable 'df' where it is not associated with a value
+2023-11-06 16:03:30 [INFO] 127.0.0.1 - - [06/Nov/2023 16:03:30] "[35m[1mGET /get_image?text=Plot+the+histogram+of+countries+showing+for+each+the+gdp,+using+different+colors+for+each+bar HTTP/1.1[0m" 500 -
+2023-11-06 16:15:34 [ERROR] Exception on /get_image [GET]
+Traceback (most recent call last):
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ipython-input-1-e4af0301be1d>", line 65, in get_image
+    df = SmartDataframe(df, config={"llm": llm})
+                        ^^
+UnboundLocalError: cannot access local variable 'df' where it is not associated with a value
+2023-11-06 16:15:34 [INFO] 127.0.0.1 - - [06/Nov/2023 16:15:34] "[35m[1mGET /get_image?text=Plot+the+histogram+of+countries+showing+for+each+the+gdp,+using+different+colors+for+each+bar HTTP/1.1[0m" 500 -
+2023-11-06 16:17:17 [INFO] Question: 0
+2023-11-06 16:17:17 [INFO] Running PandasAI with openai LLM...
+2023-11-06 16:17:17 [INFO] Prompt ID: f37944fa-909d-4b28-9a1a-38f82fd127b8
+2023-11-06 16:17:17 [INFO] Using prompt: 
+You are provided with the following pandas DataFrames:
+
+<dataframe>
+Dataframe dfs[0], with 10 rows and 2 columns.
+This is the metadata of the dataframe dfs[0]:
+country,gdp
+United States,19294482071552
+Germany,3435817336832
+France,2411255037952
+United Kingdom,2891615567872
+Italy,1745433788416
+</dataframe>
+
+<conversation>
+User 1: 0
+</conversation>
+
+This is the initial python code to be updated:
+```python
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+```
+
+Using the provided dataframes (`dfs`), update the python code based on the last question in the conversation.
+
+Updated code:
+
+2023-11-06 16:18:06 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Get the first dataframe from the list
+    df = dfs[0]
+    
+    # Prepare: No preprocessing or cleaning needed
+    
+    # Process: Calculate the average GDP
+    avg_gdp = df['gdp'].mean()
+    
+    # Analyze: Return the average GDP as a number
+    result = {
+        "type": "number",
+        "value": avg_gdp
+    }
+    
+    return result
+```
+
+2023-11-06 16:18:06 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    avg_gdp = df['gdp'].mean()
+    result = {'type': 'number', 'value': avg_gdp}
+    return result
+        ```
+2023-11-06 16:18:06 [INFO] Answer: {'type': 'number', 'value': 5307077990809.6}
+2023-11-06 16:18:06 [INFO] Executed in: 49.44510293006897s
+2023-11-06 16:18:06 [INFO] 127.0.0.1 - - [06/Nov/2023 16:18:06] "GET /get_image?text=0 HTTP/1.1" 200 -
+2023-11-06 16:18:38 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+2023-11-06 16:18:38 [INFO] Running PandasAI with openai LLM...
+2023-11-06 16:18:38 [INFO] Prompt ID: 5a4c970c-393c-42bf-9d16-b654a6dc116d
+2023-11-06 16:18:38 [INFO] Using cached response
+2023-11-06 16:18:38 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    # No processing needed
+    
+    # Analyze
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    
+    return {"type": "plot", "value": "temp_chart.png"}
+```
+
+2023-11-06 16:18:38 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    return {'type': 'plot', 'value': 'temp_chart.png'}
+        ```
+2023-11-06 16:18:38 [INFO] Answer: {'type': 'plot', 'value': 'temp_chart.png'}
+2023-11-06 16:18:38 [INFO] Executed in: 0.19531607627868652s
+2023-11-06 16:18:38 [INFO] 127.0.0.1 - - [06/Nov/2023 16:18:38] "GET /get_image?text=Plot+the+histogram+of+countries+showing+for+each+the+gdp,+using+different+colors+for+each+bar HTTP/1.1" 200 -
+2023-11-06 16:19:55 [INFO] Question: 
+2023-11-06 16:19:55 [INFO] Running PandasAI with openai LLM...
+2023-11-06 16:19:55 [INFO] Prompt ID: ef01b537-5b42-490c-8cd5-3b9499e3ca0d
+2023-11-06 16:19:55 [INFO] Using cached response
+2023-11-06 16:19:55 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare: No preprocessing or cleaning needed
+    
+    # Process: Calculate the average GDP
+    avg_gdp = dfs[0]['gdp'].mean()
+    
+    # Analyze: Return the average GDP as a number
+    result = {
+        "type": "number",
+        "value": avg_gdp
+    }
+    
+    return result
+```
+
+2023-11-06 16:19:55 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    avg_gdp = dfs[0]['gdp'].mean()
+    result = {'type': 'number', 'value': avg_gdp}
+    return result
+        ```
+2023-11-06 16:19:55 [INFO] Answer: {'type': 'number', 'value': 5307077990809.6}
+2023-11-06 16:19:55 [INFO] Executed in: 0.06063103675842285s
+2023-11-06 16:19:55 [INFO] 127.0.0.1 - - [06/Nov/2023 16:19:55] "GET /get_image?text= HTTP/1.1" 200 -
+2023-11-06 16:20:27 [INFO] Question: Plot the histogram of countries showing for each the gdp, using different colors for each bar
+2023-11-06 16:20:27 [INFO] Running PandasAI with openai LLM...
+2023-11-06 16:20:27 [INFO] Prompt ID: be6db69a-ccde-4658-a35b-2ca80e0c894b
+2023-11-06 16:20:27 [INFO] Using cached response
+2023-11-06 16:20:27 [INFO] Code generated:
+```
+# TODO import all the dependencies required
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Prepare
+    df = dfs[0]
+    
+    # Process
+    # No processing needed
+    
+    # Analyze
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    
+    return {"type": "plot", "value": "temp_chart.png"}
+```
+
+2023-11-06 16:20:27 [INFO] 
+Code running:
+```
+def analyze_data(dfs: list[pd.DataFrame]) ->dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    df = dfs[0]
+    plt.bar(df['country'], df['gdp'], color=['red', 'blue', 'green', 'yellow', 'orange'])
+    plt.xlabel('Country')
+    plt.ylabel('GDP')
+    plt.title('GDP by Country')
+    plt.savefig('temp_chart.png')
+    plt.close()
+    return {'type': 'plot', 'value': 'temp_chart.png'}
+        ```
+2023-11-06 16:20:27 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 16:20:27 [INFO] Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2023-11-06 16:20:28 [INFO] Answer: {'type': 'plot', 'value': 'temp_chart.png'}
+2023-11-06 16:20:28 [INFO] Executed in: 0.20435738563537598s
+2023-11-06 16:20:28 [INFO] 127.0.0.1 - - [06/Nov/2023 16:20:28] "GET /get_image?text=Plot+the+histogram+of+countries+showing+for+each+the+gdp,+using+different+colors+for+each+bar HTTP/1.1" 200 -
+2023-11-06 16:21:17 [ERROR] Exception on /get_image [GET]
+Traceback (most recent call last):
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ipython-input-1-e4af0301be1d>", line 65, in get_image
+    df = SmartDataframe(df, config={"llm": llm})
+                        ^^
+UnboundLocalError: cannot access local variable 'df' where it is not associated with a value
+2023-11-06 16:21:17 [INFO] 127.0.0.1 - - [06/Nov/2023 16:21:17] "[35m[1mGET /get_image?text=Plot+the+histogram+of+countries+showing+for+each+the+gdp,+using+different+colors+for+each+bar HTTP/1.1[0m" 500 -
+2023-11-06 16:22:25 [ERROR] Exception on /get_image [GET]
+Traceback (most recent call last):
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Asus\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ipython-input-1-e4af0301be1d>", line 65, in get_image
+    df = SmartDataframe(df, config={"llm": llm})
+                        ^^
+UnboundLocalError: cannot access local variable 'df' where it is not associated with a value
+2023-11-06 16:22:26 [INFO] 127.0.0.1 - - [06/Nov/2023 16:22:26] "[35m[1mGET /get_image?text=Plot+the+histogram+of+countries+showing+for+each+the+gdp,+using+different+colors+for+each+bar HTTP/1.1[0m" 500 -
