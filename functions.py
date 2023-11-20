@@ -107,29 +107,29 @@ def draft_email(user_input):
 
     #textsplitter-----------------
 
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=400,
-        chunk_overlap=2,
-    )
+    # text_splitter = RecursiveCharacterTextSplitter(
+    #     chunk_size=400,
+    #     chunk_overlap=2,
+    # )
 
-    docs = text_splitter.split_documents(docs)
+    # docs = text_splitter.split_documents(docs)
     # print(docs[3].page_content)
     #-----------------
 
-    from langchain.embeddings import OpenAIEmbeddings
-    openai_embeddings = OpenAIEmbeddings()
+    # from langchain.embeddings import OpenAIEmbeddings
+    # openai_embeddings = OpenAIEmbeddings()
 
-    from langchain.vectorstores.faiss import FAISS
+    # from langchain.vectorstores.faiss import FAISS
     import pickle
 
-    #Very important - db below is used for similarity search and not been used by agents in tools
+    # #Very important - db below is used for similarity search and not been used by agents in tools
 
-    db = FAISS.from_documents(docs, openai_embeddings)
+    # db = FAISS.from_documents(docs, openai_embeddings)
     
-    import pickle
+    # import pickle
 
-    with open("db.pkl", "wb") as f:
-        pickle.dump(db, f)
+    # with open("db.pkl", "wb") as f:
+    #     pickle.dump(db, f)
         
     with open("db.pkl", "rb") as f:
         db = pickle.load(f)
